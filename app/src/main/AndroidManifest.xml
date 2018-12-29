@@ -13,7 +13,7 @@
 
         </activity>
         <activity android:name=".FormularioActivity"
-                  android:label="Formulario">
+                  android:label="Formulário">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
