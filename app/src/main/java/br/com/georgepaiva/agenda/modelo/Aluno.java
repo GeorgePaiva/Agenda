@@ -1,11 +1,20 @@
 package br.com.georgepaiva.agenda.modelo;
 
 public class Aluno {
+    private Long id;
     private String nome;
     private String endereco;
     private String telefone;
     private String email;
     private Double nota;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -45,5 +54,10 @@ public class Aluno {
 
     public void setNota(Double nota) {
         this.nota = nota;
+    }
+
+    @Override
+    public String toString() {
+        return getId() + " - " + getNome();
     }
 }

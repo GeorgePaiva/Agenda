@@ -2,9 +2,11 @@ package br.com.georgepaiva.agenda.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+import java.util.ArrayList;
+import java.util.List;
 import br.com.georgepaiva.agenda.modelo.Aluno;
 
 public class AlunoDAO extends SQLiteOpenHelper {
@@ -26,8 +28,7 @@ public class AlunoDAO extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insere(Aluno aluno) {
-        SQLiteDatabase db = getWritableDatabase();
+    public void insere(Aluno aluno) { SQLiteDatabase db = getWritableDatabase();
 
         ContentValues dados = new ContentValues();
         dados.put("nome", aluno.getNome());
@@ -38,4 +39,26 @@ public class AlunoDAO extends SQLiteOpenHelper {
 
         db.insert("Alunos", null, dados);
     }
+
+    public List<Aluno> buscaAlunos() {
+        String sql = "SELECT * FROM Alunos;";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(sql, null);
+
+        List<Aluno> alunos  = new ArrayList<Aluno>();
+        while (c.moveToNext()) {
+            Aluno aluno = new Aluno();
+            aluno.setId(c.getLong(c.getColumnIndex("id")));
+            aluno.setNome(c.getString(c.getColumnIndex("nome")));
+            aluno.setEndereco(c.getString(c.getColumnIndex("endereco")));
+            aluno.setTelefone(c.getString(c.getColumnIndex("telefone")));
+            aluno.setEmail(c.getString(c.getColumnIndex("email")));
+            aluno.setNota(c.getDouble(c.getColumnIndex("nota")));
+            alunos.add(aluno);
+        }
+        c.close();
+        return alunos;
+
+    }
+
 }

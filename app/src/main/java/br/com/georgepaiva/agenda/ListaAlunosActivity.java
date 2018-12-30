@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import java.util.List;
+import br.com.georgepaiva.agenda.dao.AlunoDAO;
+import br.com.georgepaiva.agenda.modelo.Aluno;
 
 public class ListaAlunosActivity extends AppCompatActivity {
 
@@ -15,9 +18,13 @@ public class ListaAlunosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
 
-        String[] alunos = {"Rafael","Marcelo","Paulo","George","Paul Allen","Ruan","Roberto","Steve Jobs","Steve Wozniak","Bill Gates","Eistein"};
+        AlunoDAO dao = new AlunoDAO(this);
+        List<Aluno> alunos = dao.buscaAlunos();
+        dao.close();
+
+
         ListView listaAlunos = findViewById(R.id.lista_alunos);
-        ArrayAdapter<String> adapter =new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos);
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, alunos);
         listaAlunos.setAdapter(adapter);
 
         Button novoAluno = findViewById(R.id.novo_aluno);
