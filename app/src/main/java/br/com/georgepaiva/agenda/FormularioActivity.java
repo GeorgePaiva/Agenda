@@ -1,5 +1,6 @@
 package br.com.georgepaiva.agenda;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -19,7 +20,15 @@ public class FormularioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
 
+
         helper = new FormularioHelper(this);
+
+        Intent intent = getIntent ();
+        Aluno aluno = (Aluno) intent.getSerializableExtra ( "aluno");
+        if (aluno!= null) {
+            helper.preencheFormulario(aluno);
+        }
+
     }
 
     @Override
