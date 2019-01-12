@@ -55,11 +55,7 @@ public class FormularioActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == CODIGO_CAMERA) {
-                ImageView foto = findViewById ( R.id.formulario_foto );
-                Bitmap bitmap = BitmapFactory.decodeFile ( caminhoFoto );
-                Bitmap bitmapReduzido = Bitmap.createScaledBitmap ( bitmap, 300, 300, true );
-                foto.setImageBitmap ( bitmapReduzido );
-                foto.setScaleType ( ImageView.ScaleType.FIT_XY );
+                helper.carregaImagem(caminhoFoto);
             }
         }
     }
@@ -76,6 +72,7 @@ public class FormularioActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_formulario_ok:
                 Aluno aluno = helper.pegarAluno();
+
                 AlunoDAO dao = new AlunoDAO(this);
                 if(aluno.getId ()!=null){
                     dao.altera(aluno);
